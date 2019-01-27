@@ -1,0 +1,49 @@
+.mainbody {
+  background-color: gray;
+  margin-left: 10%;
+}
+
+  .bar:hover {
+    fill: #2f5491;
+  }
+
+  .bar{
+  	
+  }
+#svgcontainer{
+	display: flex;
+	flex-direction: row;
+	padding-right: 5%;
+}
+
+.sidebarbutton{
+	width:100%;
+}
+
+.sidebara {
+	display:block;
+	white-space: normal;
+	padding: 0;
+}
+
+.w3-bar-item w3-button{
+	padding: 0;
+}
+
+h1{
+	margin: 0;
+}
+
+.skilltable{
+	border-collapse: collapse;
+	width: 100%;
+	margin-left: 5%;
+}
+
+.borderrow{
+	border: thin solid black;
+}
+
+.individual{
+	width: 50%;
+}
