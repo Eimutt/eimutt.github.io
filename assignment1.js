@@ -88,7 +88,7 @@ function init() {
     .attr("y", 20)
     .text(function(){return "Average: " + d3.mean(data, function(d){return d}).toFixed(2)});
 
-  d3.select("#svgcontainer").append("div").classed("individual", true).attr("height", 650).attr("width", '50%').attr("y", 0)
+  d3.select("#svgcontainer").append("div").classed("individual", true).attr("height", 650).attr("width", '50%').attr("y", 0).text("Click a bar to vi")
 }
 
 function update(int) {
@@ -169,7 +169,7 @@ function getPeople(number){
     }
   }
 
-  people.sort(dynamicSort(curSkill));
+  people.sort(dynamicSort('total'));
 
   var thead = table.append('thead');
   var tbody = table.append('tbody');
