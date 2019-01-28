@@ -242,7 +242,9 @@ function showPerson(id){
   statnumberlist.append("ul").attr("style", 'list-style-type:none')
     .selectAll("li")
     .data(stats)
-    .enter().append("li").append("div").text(function(stats){return values[id][simplify(stats)]}).style("background-color", function(stats){return perc2color(stats)});
+    .enter().append("li")
+    .style("background-color", function(stats){return perc2color(values[id][simplify(stats)])})
+    .text(function(stats){return values[id][simplify(stats)]});
 
   /*
   var smallsvg = personalstats.append("svg").attr("width", "60%").attr("height", 300);
@@ -318,7 +320,11 @@ function dynamicSort(property) {
 
 function perc2color(perc) {
   var r, g, b = 0;
-  perc = ((perc-39)*2);
+  if(perc <= 10){
+    perc *= 10;
+  } else {
+    perc = ((perc-39)*2);
+  }
   if(perc < 50) {
     r = 255;
     g = Math.round(5.1 * perc);
