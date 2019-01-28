@@ -11,29 +11,36 @@
 <body onload="tryapi()">
 
 <div>
-<div class="w3-sidebar w3-bar-block" style="width:15%">
-  <h2 id="apptitle">Team Builder</h1>
-  <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Information Visualization" onclick="update(this.value)">Information visualization</button></a>
-  <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Statistics" onclick="update(this.value)">Statistics</button></a>
-  <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Math" onclick="update(this.value)">Math</button></a>
-  <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Artistic" onclick="update(this.value)">Artistic</button></a>
-  <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Computer usage" onclick="update(this.value)">Computer usage</button></a>
-  <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Programming" onclick="update(this.value)">Programming</button></a>
-  <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Computer graphics" onclick="update(this.value)">Computer graphics</button></a>
-  <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="HCI" onclick="update(this.value)">HCI</button></a>
-  <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="User experience" onclick="update(this.value)">User experience</button></a>
-  <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Communication" onclick="update(this.value)">Communication</button></a>
-  <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Collaboration" onclick="update(this.value)">Collaboration</button></a>
-  <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Code repository" onclick="update(this.value)">Code repository</button></a>
+  <div class="w3-sidebar w3-bar-block" style="width:15%">
+    <h2 id="apptitle">Team Builder</h2>
+    <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Information Visualization" onclick="update(this.value)">Information visualization</button></a>
+    <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Statistics" onclick="update(this.value)">Statistics</button></a>
+    <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Math" onclick="update(this.value)">Math</button></a>
+    <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Artistic" onclick="update(this.value)">Artistic</button></a>
+    <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Computer usage" onclick="update(this.value)">Computer usage</button></a>
+    <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Programming" onclick="update(this.value)">Programming</button></a>
+    <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Computer graphics" onclick="update(this.value)">Computer graphics</button></a>
+    <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="HCI" onclick="update(this.value)">HCI</button></a>
+    <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="User experience" onclick="update(this.value)">User experience</button></a>
+    <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Communication" onclick="update(this.value)">Communication</button></a>
+    <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Collaboration" onclick="update(this.value)">Collaboration</button></a>
+    <a href="#" class="sidebara"><button class="sidebarbutton" type="button" value="Code repository" onclick="update(this.value)">Code repository</button></a>
+  </div>
+
+  <div class="mainbody">
+    <h1 id="title"></h1>
+    <div id="svgcontainer"></div>
+  </div>
+  <div id="team">
+    <div id="teamtitle">Team Members: </div>
+    <div id="membercontainer">
+      <div id="teammembers"></div>
+      <div id="neededskills">
+        <div>The Team Needs:</div>
+        <div id="needslist"></div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<div class="mainbody">
-
-<h1 id="title">
-</h1>
-<div id="svgcontainer"></div>
-<div id="individual"></div>
-<div id="filler"></div>
-<div>
 </body>
 </html>

@@ -4,6 +4,21 @@ var data = [4,7,6,4,2,3];
 var occurances = [0,0,0,0,0,0,0,0,0,0,0];
 var currentskill;
 var stats = ["Information Visualization", "Statistics", "Math", "Artistic", "Computer Usage", "Programming", "Computer Graphics", "HCI", "User Experience", "Communication", "Collaboration", "Code Repository", "Total"];
+var team = [];
+var teamtotals = {
+  artistic: 0,
+  coderepository: 0,
+  collaboration: 0,
+  communication: 0,
+  computergraphics: 0,
+  computerusage: 0,
+  hci: 0,
+  informationvisualization: 0,
+  math: 0,
+  programming: 0,
+  statistics: 0,
+  userexperience: 0
+}
 
 function tryapi() {
   const url = "https://sheets.googleapis.com/v4/spreadsheets/1LFWZuyPdas493OrPrqLqaFodNstEnt9m0fmTg_4CEls/values/'Form Responses 1'?key=AIzaSyAwCn_KpGPZ2OqFQ66A3VCp4XD8R0k0znA"
@@ -221,7 +236,15 @@ function showPerson(id){
 
   var info = personcontainer.append("div").classed("info", true);
   //var hobbies = info.append("div").classed("hobbies", true);
-  info.append("span").append("h3").text(function(){return  person[1] });
+  var span = info.append("span")
+  span.append("h3").style("display", 'inline-block').text(function(){return  person[1] });
+ //span.append("button").attr("onclick", "addToTeam(" +id + ")").style("float", 'right').style("margin", '15px').text("Add To Team");
+    span.append("button")
+
+    .attr("onclick", function(){if (team.includes(values[id].name)) return ""; else return "addToTeam(" +id + ")"})
+
+
+    .style("float", 'right').style("margin", '15px').text(function(){if (team.includes(values[id].name)) return "Already in team"; else return "Add To Team"});
   var info1 = info.append("div").classed("generalinfo", true);
   var major = info1.append("div").classed("major", true);
   var hobbies = info1.append("div").classed("hobbies", true);
@@ -279,6 +302,47 @@ function showPerson(id){
   */
 
 
+}
+
+function addToTeam(id){
+  if (team.length == 6){
+        alert("Full Team");
+  } else if(!team.includes(values[id].name)){
+    d3.select("#teammembers").append("div").text(values[id].name);
+    team.push(values[id].name);
+    updateTeamTotals(id);
+  if (team.length == 6){
+    d3.select("#teammembers").append("button").text("Complete Team").attr("onclick", "clearTeam()");
+  }
+  }
+}
+
+function updateTeamTotals(id){
+  var lowestThree = [];
+    for(var teamtotal in teamtotals) {
+      teamtotals[teamtotal] += parseInt(values[id][teamtotal]);
+      lowestThree.push([teamtotal, teamtotals[teamtotal]]);
+    }
+
+  lowestThree.sort(function(a, b) {
+    return a[1] - b[1];
+  });
+
+  d3.select("#needslist").html("");
+  d3.select("#needslist").append("div").text(lowestThree[0][0] + '(' + lowestThree[0][1] + ')');
+  d3.select("#needslist").append("div").text(lowestThree[1][0] + '(' + lowestThree[1][1] + ')');
+  d3.select("#needslist").append("div").text(lowestThree[2][0] + '(' + lowestThree[2][1] + ')');
+}
+
+
+
+function clearTeam(){
+  d3.select("#teammembers").html("");
+  team = [];
+  for(var teamtotal in teamtotals) {
+    teamtotals[teamtotal] = 0;
+  }
+  d3.select("#needslist").html("");
 }
 
 function condensedata(sheetdata){

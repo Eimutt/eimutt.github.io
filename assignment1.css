@@ -115,3 +115,22 @@ body {
 ul {
 	margin: 0;
 }
+
+#team {
+	margin-left: 15%;
+}
+
+#teamtitle {
+	font-weight: 400;
+	font-size: 24px;
+	border-top: black solid;
+}
+
+#membercontainer {
+	display: flex;
+	flex-direction: row;
+}
+
+#teammembers {
+	width: 25%;
+}
