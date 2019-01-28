@@ -88,7 +88,7 @@ function init() {
     .attr("y", 20)
     .text(function(){return "Average: " + d3.mean(data, function(d){return d}).toFixed(2)});
 
-  d3.select("#svgcontainer").append("div").classed("individual", true).attr("height", 650).attr("width", '50%').attr("y", 0).text("Click a bar to vi")
+  d3.select("#svgcontainer").append("div").classed("individual", true).attr("height", 650).attr("width", '50%').attr("y", 0).text("Click a Bar to view people of that skill Level")
 }
 
 function update(int) {
