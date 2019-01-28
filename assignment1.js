@@ -1,7 +1,9 @@
+var detaileddata;
 var values;
 var data = [4,7,6,4,2,3];
 var occurances = [0,0,0,0,0,0,0,0,0,0,0];
 var currentskill;
+var stats = ["Information Visualization", "Statistics", "Math", "Artistic", "Computer Usage", "Programming", "Computer Graphics", "HCI", "User Experience", "Communication", "Collaboration", "Code Repository", "Total"];
 
 function tryapi() {
   const url = "https://sheets.googleapis.com/v4/spreadsheets/1LFWZuyPdas493OrPrqLqaFodNstEnt9m0fmTg_4CEls/values/'Form Responses 1'?key=AIzaSyAwCn_KpGPZ2OqFQ66A3VCp4XD8R0k0znA"
@@ -12,6 +14,7 @@ function tryapi() {
     .then(function(myJson) {
       console.log((myJson));
       //values = myJson.values;
+      detaileddata = myJson.values;
       values = condensedata(myJson.values);
       init();
     });
@@ -19,7 +22,7 @@ function tryapi() {
 
 function init() {
   getdata("Information Visualization");
-  d3.select("#title").html(" Information Visualization" + "Skills");
+  d3.select("#title").html(" Information Visualization" + " Skill Distribution");
   currentskill = "Information Visualization";
   var svg = d3.select("#svgcontainer").append("svg").classed("graph",true).attr("height", 700).attr("width", '50%').attr("y", 0);
   var padding = {top:20, right: 30, left:50, bottom: 30};
@@ -70,12 +73,12 @@ function init() {
     .attr("y", 20)
     .text(function(){return "Average: " + d3.mean(data, function(d){return d}).toFixed(2)});
 
-  d3.select("#svgcontainer").append("div").classed("individual", true).attr("height", 700).attr("width", '50%').attr("y", 0)
+  d3.select("#svgcontainer").append("div").classed("individual", true).attr("height", 650).attr("width", '50%').attr("y", 0)
 }
 
 function update(int) {
   getdata(int);
-  d3.select("#title").html(" " +int + " Skills");
+  d3.select("#title").html(" " +int + " Skill Distribution");
   currentskill = int;
   var svg = d3.select("svg");
   var padding = {top:20, right: 30, left:50, bottom: 30};
@@ -169,7 +172,8 @@ function getPeople(number){
     .enter()
     .append('tr')
     .classed('borderrow', true)
-    .style('background-color', function(person){return perc2color(person.total)});
+    .attr('onclick', function(person){return 'showPerson(' + person.id + ')'})
+    .style('background-color', function(person){return perc2color(person.total)})
 
 
 var cells = rows.selectAll('td')
@@ -210,6 +214,71 @@ function hideNumber(){
   d3.selectAll(".bartext").remove();
 }
 
+function showPerson(id){
+  var person = detaileddata[id+1];
+  d3.select(".individual").html("");
+  var personcontainer=d3.select(".individual").append('div').classed("personcontainer", true).attr("height", '600px').style('border', 'solid black');
+
+  var info = personcontainer.append("div").classed("info", true);
+  //var hobbies = info.append("div").classed("hobbies", true);
+  info.append("span").append("h3").text(function(){return  person[1] });
+  var info1 = info.append("div").classed("generalinfo", true);
+  var major = info1.append("div").classed("major", true);
+  var hobbies = info1.append("div").classed("hobbies", true);
+  major.append("span").append("h4").text("Major").style("font-weight", 'bold');
+  major.append("span").text(function(){return person[2]});
+  hobbies.append("span").append("h4").text("Hobbies").style("font-weight", 'bold');
+  hobbies.append("span").text(function(){return person[4]});
+
+
+  var personalstats = personcontainer.append("div").classed("stats", true);
+  var statlist = personalstats.append("div").classed("statlist", true);
+  statlist.append("ul").attr("style", 'list-style-type:none')
+    .selectAll("li")
+    .data(stats)
+    .enter().append("li").text(function(stats){return stats});
+
+  var statnumberlist = personalstats.append("div").classed("statlist", true);
+  statnumberlist.append("ul").attr("style", 'list-style-type:none')
+    .selectAll("li")
+    .data(stats)
+    .enter().append("li").append("div").text(function(stats){return values[id][simplify(stats)]}).style("background-color", function(stats){return perc2color(stats)});
+
+  /*
+  var smallsvg = personalstats.append("svg").attr("width", "60%").attr("height", 300);
+
+  var yind = 0;
+  var yind2 = 0;
+
+  smallsvg
+    .selectAll("line")
+    .data(stats)
+    .enter().append("g").append("line")
+    .attr("x1", 5)
+    .attr("y1", function(){var yval = yind2*300/13; yind2++; return yval})
+    .attr("x2", parseInt(smallsvg.style("width"))-10)
+    .attr("y2", function(){var yval = yind*300/13; yind++; return yval})
+    .attr("stroke-width", 2)
+    .attr("stroke", "black");
+
+
+  yind = 0;
+  yind2 = 0;
+  smallsvg.selectAll("g")
+    .data(stats).enter()
+    .append("line")
+    .attr("x1", 300*values[id][simplify(stats)])
+    .attr("y1", function(){var yval = yind2*300/13; yind2++; return yval})
+    .attr("x1", 300*values[id][simplify(stats)])
+    .attr("y2", function(){var yval = yind*300/13; yind++; return yval})
+    .attr("stroke-width", 2)
+    .attr("stroke", "black"); 
+
+  */
+
+
+}
+
 function condensedata(sheetdata){
   var smallerdata = [];
   for(var i = 0; i < 57; i++){
@@ -231,7 +300,8 @@ function condensedata(sheetdata){
       communication: sheetdata[i+1][15],
       collaboration: sheetdata[i+1][16],
       coderepository: sheetdata[i+1][17],
-      total: sum
+      total: sum,
+      id: i
     }
     smallerdata[i] = object;
   }

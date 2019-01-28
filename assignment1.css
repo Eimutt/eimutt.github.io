@@ -1,6 +1,9 @@
 .mainbody {
   background-color: gray;
-  margin-left: 10%;
+  margin-left: 15%;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
 }
 
   .bar:hover {
@@ -37,7 +40,6 @@ h1{
 .skilltable{
 	border-collapse: collapse;
 	width: 100%;
-	margin-left: 5%;
 }
 
 .borderrow{
@@ -46,4 +48,70 @@ h1{
 
 .individual{
 	width: 50%;
+}
+
+.w3-sidebar{
+	border-right: black thin;
+	background-color: #3b3a3c;
+}
+
+#apptitle{
+	background-color: #3b3a3c;
+	color: darkviolet;
+	font-weight: bold;
+	padding: 20px;
+	text-align: center;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+}
+
+#filler {
+  background-color: #DDDDDD;
+  flex-grow : 1;
+}
+
+.personcontainer{
+	display: flex;
+	flex-direction: column;
+	height: 600px;
+}
+
+.statlist {
+	width: 45%;
+	text-align: center;
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	margin-left: 5%;
+	height: 300px;
+}
+
+.generalinfo {
+	display: flex;
+	flex-direction: row;
+}
+
+.hobbies {
+	width: 65%;
+}
+
+.major {
+	width: 35%;
+}
+
+.stats {
+	display: flex;
+	flex-direction: row;
+}
+
+ul {
+	margin: 0;
 }
